@@ -1,8 +1,8 @@
 # backend/api/urls.py
 
 from django.urls import path
-from .views import hello_world
+from .views import TestTableView
 
 urlpatterns = [
-    path('hello/', hello_world),
+    path('test/', TestTableView.as_view(), name='test-table'),
 ]
