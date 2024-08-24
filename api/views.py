@@ -1,8 +1,15 @@
-# backend/api/views.py
-
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from .models import TestTable
+from .serializers import TestTableSerializer
 
-@api_view(['GET'])
-def hello_world(request):
-    return Response({"message": "Hello, World!"})
+class TestTableView(APIView):
+    def get(self, request):
+        # Data Retrieval
+        first_entry = TestTable.objects.first()  # Retrieves the first record from test_table
+
+        # Serialization
+        serializer = TestTableSerializer(first_entry)
+
+        # Response
+        return Response(serializer.data)
