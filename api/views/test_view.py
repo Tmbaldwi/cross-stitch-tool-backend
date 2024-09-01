@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import TestTable
-from .serializers import TestTableSerializer
+from ..models.test_models import TestTable
+from ..serializers import TestTableSerializer
 from django.db import connection
 
 class TestTableView(APIView):
