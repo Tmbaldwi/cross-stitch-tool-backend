@@ -12,7 +12,7 @@ class ImageUploadView(APIView):
         if not file:
             return Response({"error": "No file uploaded"}, status=status.HTTP_400_BAD_REQUEST)
         
-        with open(f'media/{"Test_File.jpg"}', 'wb+') as destination:
+        with open(f'media/{"file_storage.png"}', 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
 
