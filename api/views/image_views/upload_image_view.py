@@ -6,7 +6,7 @@ from rest_framework import status
 class ImageUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         file = request.FILES.get('file')
 
         if not file:
