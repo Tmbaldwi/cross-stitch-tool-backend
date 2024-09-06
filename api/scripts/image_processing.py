@@ -2,18 +2,20 @@ import os
 from PIL import Image
 import numpy as np
 
-orig_image_path = 'media/original_image.png'
-mod_image_path = 'media/modified_image.png'
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+orig_image_path = os.path.join(current_dir, '..', '..', 'media', 'original_image.png')
+mod_image_path = os.path.join(current_dir, '..', '..', 'media', 'modified_image.png')
 
 tolerance = 5 #TODO add tolerance to images
 
-def get_color_palette_from_image(image_path):
+def get_color_palette_from_original_image():
     # check image exists and path is valid
-    if not image_path_valid(image_path):
+    if not image_path_valid(orig_image_path):
         return None
     
     # take image and convert to a pixel array
-    pixels = convert_image_to_pixel_array(image_path)
+    pixels = convert_image_to_pixel_array(orig_image_path)
     
     # get color palette
     palette = process_image_for_color_palette(pixels)
@@ -62,5 +64,3 @@ def process_image_for_color_palette(pixel_array):
     print(f"Unique colors found: {len(unique_colors)}")
 
     return unique_colors
-
-get_color_palette_from_image(orig_image_path)
