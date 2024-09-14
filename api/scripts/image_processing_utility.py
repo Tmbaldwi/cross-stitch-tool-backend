@@ -29,9 +29,16 @@ def convert_image_to_pixel_array(image_path):
         return None
     
 def convert_pixel_array_to_image(pixel_array, output_path):
-    pixel_array = np.array(pixel_array, dtype=np.uint8)
-    img = Image.fromarray(pixel_array)
-    img.save(output_path)
+    try:
+        pixel_array = np.array(pixel_array, dtype=np.uint8)
+        img = Image.fromarray(pixel_array)
+        img.save(output_path)
+        print(f"Pixel array converted to image")
+
+        return True
+    except Exception as ex:
+        print(f"Error converting pixel array to image : {ex}")
+        return False
 
     
 def rgb_to_hex(rgb):
