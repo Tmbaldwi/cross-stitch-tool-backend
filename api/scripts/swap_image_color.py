@@ -18,12 +18,14 @@ from api.scripts.image_processing_utility import (
 def swap_image_color(originalColor, newColor):
     # check image exists and path is valid
     if not image_path_valid(orig_image_path) or not image_path_valid(mod_image_path):
-        return None
+        return False
     
     # convert both images to pixel arrays
     orig_image_array = convert_image_to_pixel_array(orig_image_path)
     mod_image_array = convert_image_to_pixel_array(mod_image_path)
 
+    if orig_image_array is None or mod_image_array is None:
+        return False
 
     height, width, _ = orig_image_array.shape
     newColor_rgb = hex_to_rgb(newColor)
@@ -34,4 +36,5 @@ def swap_image_color(originalColor, newColor):
             if rgb_to_hex(orig_image_array[row,col]) == originalColor:
                 mod_image_array[row,col] = newColor_rgb
 
-    convert_pixel_array_to_image(mod_image_array, mod_image_path)
+    return convert_pixel_array_to_image(mod_image_array, mod_image_path)
+ 
