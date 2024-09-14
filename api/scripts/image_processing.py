@@ -1,11 +1,5 @@
-import os
-from PIL import Image
-import numpy as np
+from .image_processing_utility import image_path_valid, convert_image_to_pixel_array, rgb_to_hex, orig_image_path
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-orig_image_path = os.path.join(current_dir, '..', '..', 'media', 'original_image.png')
-mod_image_path = os.path.join(current_dir, '..', '..', 'media', 'modified_image.png')
 
 tolerance = 5 #TODO add tolerance to images
 
@@ -22,31 +16,6 @@ def get_color_palette_from_original_image():
     
     return palette
 
-
-def image_path_valid(image_path):
-    if os.path.isfile(image_path):
-        print(f"Image file found: {image_path}")
-        return True
-        
-    else:
-        print(f"PNG file not found at: {image_path}")
-        return False
-    
-def convert_image_to_pixel_array(image_path):
-    try:
-        with Image.open(image_path) as image:
-            image = image.convert('RGB')
-            pixel_array = np.array(image)
-            print(f"Image converted to pixel array")
-            
-            return pixel_array
-    except Exception as ex:
-        print(f"Error converting image to pixel array: {ex}")
-        return None
-    
-def rgb_to_hex(rgb):
-    return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
-    
 def process_image_for_color_palette(pixel_array):
     height, width, _ = pixel_array.shape
     unique_colors = []
