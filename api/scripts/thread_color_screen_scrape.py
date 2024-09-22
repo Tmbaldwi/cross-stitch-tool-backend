@@ -494,6 +494,7 @@ def data_retrieval():
 def get_thread_list():
     thread_list = []
 
+    # get all threads and put them into thread data object
     for thread in thread_list_raw:
         thread_list.append(Thread(thread[0], thread[1], thread[2], thread[3], thread[4], "#" + thread[5]))
     
