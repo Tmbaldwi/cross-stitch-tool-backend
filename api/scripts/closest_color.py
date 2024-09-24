@@ -1,5 +1,5 @@
 from api.scripts.thread_color_screen_scrape import get_thread_list
-from api.scripts.image_processing_utility import hex_to_rgb
+from api.scripts.utility.image_processing_utility import hex_to_rgb
 from api.models.color_option_model import ColorOption
 from typing import Tuple
 import math
