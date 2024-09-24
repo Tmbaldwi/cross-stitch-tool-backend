@@ -3,9 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import FileResponse
-from django.shortcuts import get_object_or_404
 from api.scripts.swap_image_color import swap_image_color
-from api.scripts.image_processing_utility import image_path_valid
+from api.scripts.utility.image_processing_utility import image_path_valid
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
