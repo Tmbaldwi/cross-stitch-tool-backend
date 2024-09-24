@@ -4,8 +4,8 @@ import numpy as np
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-orig_image_path = os.path.join(current_dir, '..', '..', 'media', 'original_image.png')
-mod_image_path = os.path.join(current_dir, '..', '..', 'media', 'modified_image.png')
+orig_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'original_image.png')
+mod_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'modified_image.png')
 
 def image_path_valid(image_path):
     if os.path.isfile(image_path):
