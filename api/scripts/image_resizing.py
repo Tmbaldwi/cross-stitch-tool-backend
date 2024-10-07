@@ -11,7 +11,7 @@ from api.scripts.utility.image_processing_utility import (
     calculate_color_distance,
     orig_image_path,
     corner_test_image_path,
-    compress_test_image_path,
+    compressed_original_image_path,
 )
 
 tolerance = 30 #default tolerance level for color differences
@@ -74,7 +74,7 @@ def are_colors_different(color_a, color_b):
 
     return dist > tolerance
 
-def compress_image(image_array, pixel_size):
+def compress_pixel_array(image_array, pixel_size):
     old_height = image_array.shape[0]
     old_width = image_array.shape[1]
 
@@ -117,18 +117,42 @@ def get_pixel_size(pixel_array):
     return smallest_most_common_size
 
 
-def test():
-    pixel_array = convert_image_to_pixel_array(orig_image_path)
+def compress_image(input_path, output_path):
+    # read image and convert to pixel array
+    pixel_array = convert_image_to_pixel_array(input_path)
 
+    # get pixel size
     print("getting pixel size")
     pixel_size = get_pixel_size(pixel_array)
 
     print("Pixel size: " + str(int(pixel_size)))
 
+    # compress image
     print("Compressing image")
-    compressed_image = compress_image(pixel_array, pixel_size)
+    compressed_image = compress_pixel_array(pixel_array, pixel_size)
 
-    convert_pixel_array_to_image(compressed_image, compress_test_image_path)
+    # convert pixel array back and write image
+    convert_pixel_array_to_image(compressed_image, output_path)
+
+
+
+# testing code ------------------------------------------------------------------------------------------------------
+def test():
+    # read image and convert to pixel array
+    pixel_array = convert_image_to_pixel_array(orig_image_path)
+
+    # get pixel size
+    print("getting pixel size")
+    pixel_size = get_pixel_size(pixel_array)
+
+    print("Pixel size: " + str(int(pixel_size)))
+
+    # compress image
+    print("Compressing image")
+    compressed_image = compress_pixel_array(pixel_array, pixel_size)
+
+    # convert pixel array back and write image
+    convert_pixel_array_to_image(compressed_image, compressed_original_image_path)
 
 def corner_test():
     pixel_array = convert_image_to_pixel_array(orig_image_path)
@@ -145,5 +169,3 @@ def corner_test():
 
     convert_pixel_array_to_image(pixel_array, corner_test_image_path)
     print("Marking done")
-
-test()
