@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
+from django.http import FileResponse
+from api.scripts.image_resizing import compress_image
+from api.scripts.utility.image_processing_utility import orig_image_path, mod_image_path, compressed_original_image_path, image_path_valid
 
 class ImageUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -12,12 +15,18 @@ class ImageUploadView(APIView):
         if not file:
             return Response({"error": "No file uploaded"}, status=status.HTTP_400_BAD_REQUEST)
         
+        # write image to original slot
         with open(f'media/{"original_image.png"}', 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
 
+        # compress original image
+        compress_image(orig_image_path, compressed_original_image_path)
+
+        # write image to modified slot TODO write compressed image to modified slot
         with open(f'media/{"modified_image.png"}', 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
 
-        return Response({"message": "Image uploaded successfully"}, status=status.HTTP_200_OK)
+        # return compressed image
+        return FileResponse(open(compressed_original_image_path, 'rb'), content_type='image/jpeg')
