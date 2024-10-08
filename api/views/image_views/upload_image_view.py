@@ -5,7 +5,11 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from django.http import FileResponse
 from api.scripts.image_resizing import compress_image
-from api.scripts.utility.image_processing_utility import orig_image_path, mod_image_path, compressed_original_image_path
+from api.scripts.utility.image_processing_utility import (
+    orig_image_path, 
+    mod_image_path, 
+    compressed_original_image_path
+)
 
 class ImageUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
