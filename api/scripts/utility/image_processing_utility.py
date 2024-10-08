@@ -5,11 +5,13 @@ from typing import Tuple
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-orig_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'original_image.png')
-mod_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'modified_image.png')
+media_dir = os.path.join(current_dir, '..', '..', '..', 'media')
 
-corner_test_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'corner_test_image.png')
-compressed_original_image_path = os.path.join(current_dir, '..', '..', '..', 'media', 'original_image_compressed.png')
+orig_image_path = os.path.join(media_dir, 'original_image.png')
+mod_image_path = os.path.join(media_dir, 'modified_image.png')
+
+corner_test_image_path = os.path.join(media_dir, 'corner_test_image.png')
+compressed_original_image_path = os.path.join(media_dir, 'original_image_compressed.png')
 
 def image_path_valid(image_path):
     if os.path.isfile(image_path):

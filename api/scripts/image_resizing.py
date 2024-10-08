@@ -1,10 +1,5 @@
 import numpy as np
 from collections import Counter
-import os
-import sys
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
 from api.scripts.utility.image_processing_utility import (
     convert_image_to_pixel_array,
     convert_pixel_array_to_image,

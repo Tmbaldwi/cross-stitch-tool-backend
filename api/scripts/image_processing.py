@@ -1,11 +1,11 @@
-from api.scripts.utility.image_processing_utility import image_path_valid, convert_image_to_pixel_array, rgb_to_hex, orig_image_path
+from api.scripts.utility.image_processing_utility import image_path_valid, convert_image_to_pixel_array, rgb_to_hex
 from api.scripts.closest_color import get_n_closest_colors
 from api.models.palette_model import Palette
 
 num_colors_returned = 5 #TODO add choice
 
-def get_palette_and_closest_colors():
-    image_colors = get_color_palette_from_original_image()
+def get_palette_and_closest_colors(image_path):
+    image_colors = get_color_palette_from_original_image(image_path)
 
     # get the 'num_colors_returned' closest colors to a given image color
     palette = []
@@ -17,13 +17,13 @@ def get_palette_and_closest_colors():
 
 
 
-def get_color_palette_from_original_image():
+def get_color_palette_from_original_image(image_path):
     # check image exists and path is valid
-    if not image_path_valid(orig_image_path):
+    if not image_path_valid(image_path):
         return None
     
     # take image and convert to a pixel array
-    pixels = convert_image_to_pixel_array(orig_image_path)
+    pixels = convert_image_to_pixel_array(image_path)
     
     # get color palette
     palette = process_image_for_color_palette(pixels)
