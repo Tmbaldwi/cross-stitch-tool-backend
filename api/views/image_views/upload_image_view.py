@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from django.http import FileResponse
-from api.scripts.image_resizing import compress_image
+from api.scripts.image_resizing import compress_image_and_return_pixel_sizes
 from api.scripts.utility.image_processing_utility import (
     orig_image_path, 
     mod_image_path, 
@@ -26,7 +26,7 @@ class ImageUploadView(APIView):
                 destination.write(chunk)
 
         # compress original image
-        compress_image(orig_image_path, compressed_original_image_path)
+        pixel_size_options = compress_image_and_return_pixel_sizes(orig_image_path, compressed_original_image_path)
 
         # write compressed image to modified slot
         with open(compressed_original_image_path, 'rb') as source:
