@@ -9,7 +9,9 @@ from api.scripts.utility.image_processing_utility import (
     compressed_original_image_path,
 )
 
-tolerance = 30 #default tolerance level for color differences
+COLOR_TOLERANCE = 30 #default tolerance level for color differences
+PIXEL_SIZE_OPTIONS_COUNT = 5 # default number of pixel size guesses
+
 
 def get_corner_indices(pixel_array):
     print("Getting corners")
@@ -67,7 +69,7 @@ def add_corner_to_lists(unique_corners, corners_by_row, corners_by_column, corne
 def are_colors_different(color_a, color_b):
     dist = calculate_color_distance(color_a, color_b)
 
-    return dist > tolerance
+    return dist > COLOR_TOLERANCE
 
 def compress_pixel_array(image_array, pixel_size):
     old_height = image_array.shape[0]
@@ -90,7 +92,7 @@ def compress_pixel_array(image_array, pixel_size):
 
     return new_image_array
 
-def get_pixel_size(pixel_array):
+def get_pixel_size_options(pixel_array):
     unique_corners, corners_all = get_corner_indices(pixel_array)
 
     # get counts of distances between each 
@@ -105,29 +107,31 @@ def get_pixel_size(pixel_array):
     print(pixel_sizes_by_count)
 
     most_common_sizes = pixel_sizes_by_count.most_common()
-    max_count = most_common_sizes[0][1]
 
-    smallest_most_common_size = min([element for element, count in most_common_sizes if count == max_count])
+    # max_count = most_common_sizes[0][1]
+    # smallest_most_common_size = min([element for element, count in most_common_sizes if count == max_count])
     
-    return smallest_most_common_size
+    return most_common_sizes[:PIXEL_SIZE_OPTIONS_COUNT]
 
 
-def compress_image(input_path, output_path):
+def compress_image_and_return_pixel_sizes(input_path, output_path):
     # read image and convert to pixel array
     pixel_array = convert_image_to_pixel_array(input_path)
 
     # get pixel size
     print("getting pixel size")
-    pixel_size = get_pixel_size(pixel_array)
+    pixel_size_options = get_pixel_size_options(pixel_array)
 
-    print("Pixel size: " + str(int(pixel_size)))
+    print("Pixel size: " + str(int(pixel_size_options[0][0])))
 
     # compress image
     print("Compressing image")
-    compressed_image = compress_pixel_array(pixel_array, pixel_size)
+    compressed_image = compress_pixel_array(pixel_array, pixel_size_options[0][0])
 
     # convert pixel array back and write image
     convert_pixel_array_to_image(compressed_image, output_path)
+
+    return pixel_size_options
 
 
 
@@ -138,7 +142,7 @@ def test():
 
     # get pixel size
     print("getting pixel size")
-    pixel_size = get_pixel_size(pixel_array)
+    pixel_size = get_pixel_size_options(pixel_array)
 
     print("Pixel size: " + str(int(pixel_size)))
 
