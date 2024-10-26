@@ -2,7 +2,7 @@ from api.scripts.utility.image_processing_utility import image_path_valid, conve
 from api.scripts.closest_color import get_n_closest_colors
 from api.models.palette_model import Palette
 
-num_colors_returned = 5 #TODO add choice
+num_colors_returned = 25 #TODO add choice
 
 def get_palette_and_closest_colors(image_path):
     image_colors = get_color_palette_from_original_image(image_path)
