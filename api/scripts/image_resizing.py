@@ -113,7 +113,7 @@ def get_pixel_size_options(pixel_array):
     
     return most_common_sizes[:PIXEL_SIZE_OPTIONS_COUNT]
 
-
+# compresses input image, writes to output path, and returns pixel size suggestions
 def compress_image_and_return_pixel_sizes(input_path, output_path):
     # read image and convert to pixel array
     pixel_array = convert_image_to_pixel_array(input_path)

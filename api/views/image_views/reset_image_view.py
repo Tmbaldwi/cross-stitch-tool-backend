@@ -3,7 +3,6 @@ import base64
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import FileResponse
 from api.scripts.utility.image_processing_utility import (
     image_path_valid, 
     mod_image_path, 
